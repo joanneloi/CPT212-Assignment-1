@@ -58,7 +58,7 @@ public class sorting {
             }
         }
 
-        System.out.println("Second Pass (by units digit):");
+        System.out.println("\nSecond Pass (by tens digit):");
         for (int i = 0; i < 10; i++) {
             System.out.print(i + ": ");
             for (int val : Array2[i]) {
@@ -81,7 +81,7 @@ public class sorting {
             }
         }
 
-        System.out.println("Third Pass (by hundreds digit):");
+        System.out.println("\nThird Pass (by hundreds digit):");
         for (int i = 0; i < 10; i++) {
             System.out.print(i + ": ");
             for (int val : Array1[i]) {
