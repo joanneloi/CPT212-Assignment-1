@@ -4,11 +4,12 @@ public class WordSorting {
     public static void main(String[] args) {
         // Example words to sort
         String[] words = {"apple", "cat", "dog", "banana", "elephant", "fox", "zebra"};
+        int n = words.length;
         
         System.out.println("Original words: " + Arrays.toString(words));
         
         // 1. Initialize
-        System.out.println("\n1. Initialization");
+        System.out.println("\n1. Initialization:");
         
         // Find the maximum length word to determine how many passes we need
         int maxLength = 0;
@@ -33,7 +34,7 @@ public class WordSorting {
         System.out.println("Array1 and Array2 initialized with 27 buckets (0 for empty, 1-26 for a-z)");
         
         // 2. Iteration
-        System.out.println("\n2. Iteration");
+        System.out.println("\n2. Iteration:");
         
         // Initialize by placing all words in Array1[0]
         // This is different from the number sorting where we distributed by ones digit first
@@ -95,7 +96,7 @@ public class WordSorting {
         
         // 3. Reorder - collect the sorted words
         System.out.println("\n3. Reorder");
-        String[] sortedWords = new String[words.length];
+        String[] sortedWords = new String[n];
         int index = 0;
         
         for (int i = 0; i < 27; i++) {

@@ -17,6 +17,7 @@ public class sorting {
         int[] arr = {275, 87, 426, 61, 409, 170, 677, 503};
         int n = arr.length;
         int counter = 3;          //the number of digits in the largest value
+        // Array1 and Array2 are the two arrays of 10 buckets. (0-9)
         ArrayList<Integer>[] Array1 = new ArrayList[10];
         ArrayList<Integer>[] Array2 = new ArrayList[10];
             
@@ -37,13 +38,13 @@ public class sorting {
         // Distribute numbers into buckets based on the units digit
         for (int i = 0; i < n; i++) {
             int digit = arr[i] % 10;  // Get the units digit
-            Array1[digit].add(arr[i]);
+            Array1[digit].add(arr[i]);  // Put the number into bucket based on the units digit
         }
 
         System.out.println("First Pass (by units digit):");
         for (int i = 0; i < 10; i++) {
             System.out.print(i + ": ");
-            for (int val : Array1[i]) {
+            for (int val : Array1[i]) {  // For every value 'val' in bucket 'i'
                 System.out.print(val + " ");
             }
             System.out.println();
@@ -52,7 +53,7 @@ public class sorting {
         // Second Pass - sort by the tens digit
         // Distribute numbers into buckets based on the tens digit
         for(int i = 0; i < 10; i++){
-            for (int val : Array1[i]) {
+            for (int val : Array1[i]) {  // Reading from Array1
                 int tensDigit = (val / 10) % 10;  // Get the tens digit
                 Array2[tensDigit].add(val);
             }
@@ -92,6 +93,8 @@ public class sorting {
 
         // 3. Reorder
         System.out.println("\n3. Reorder");
+
+        // Create a new array to store the sorted numbers
         int[] sortedArr = new int[n];
         int index = 0;
         
