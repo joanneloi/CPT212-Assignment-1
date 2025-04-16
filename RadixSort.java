@@ -1,73 +1,81 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class DirectRadixSort {
+public class RadixSort {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        
-        // Get input numbers
+
+        // Input handling with validation
         String[] numbers;
         while (true) {
             System.out.println("Enter numbers separated by space:");
             String input = scanner.nextLine().trim();
+            
             numbers = input.split("\\s+");
+            numbers = Arrays.stream(numbers)
+                    .filter(s -> !s.isEmpty())
+                    .toArray(String[]::new);
+
             if (numbers.length > 0) break;
             System.out.println("Error: No numbers entered. Please try again.");
         }
 
-        // Pad numbers with leading zeros
-        int maxLength = Arrays.stream(numbers).mapToInt(String::length).max().orElse(0);
-        numbers = Arrays.stream(numbers)
-                       .map(num -> String.format("%" + maxLength + "s", num).replace(' ', '0'))
-                       .toArray(String[]::new);
+        // Get maximum length and pad numbers
+        int maxLength = getMaxLength(numbers);
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = padLeftZeros(numbers[i], maxLength);
+        }
 
-        // Perform radix sort
-        String[] sorted = radixSort(numbers, maxLength);
-
-        // Final output
-        // Output result
-        System.out.println("\nFinal sorted result:");
-        System.out.println(String.join(" ", sorted));
-        
-        scanner.close();
-    }
-
-    private static String[] radixSort(String[] numbers, int maxLength) {
         // Initialize arrays
-        String[] Array1 = new String[numbers.length];
-        String[] Array2 = new String[numbers.length];
+        String[] array1 = new String[numbers.length];
+        String[] array2 = new String[numbers.length];
+        System.arraycopy(numbers, 0, array1, 0, numbers.length);
 
-        //System.arraycopy(numbers, 0, array1, 0, numbers.length);
-
+        // Radix sort
         for (int digitIndex = maxLength - 1; digitIndex >= 0; digitIndex--) {
-            // digit index 可以换一下，怪怪的，就是个位数是4（现在）
-            System.out.println("\nAfter processing digit at index " + (digitIndex+1) + "(from right): ");
+            System.out.println("\nAfter processing digit at index " + digitIndex + " (from right):");
 
             if (digitIndex == maxLength - 1) {
                 // First pass - sort from input to array1
-                sortByDigit(numbers, Array1, digitIndex);
-                System.out.println("Output from Array1:");
-                printArray(Array1);
+                sortByDigit(numbers, array1, digitIndex);
+                System.out.println("Output from array1:");
+                printArray(array1);
             } 
             else if ((maxLength - 1 - digitIndex) % 2 == 1) {
                 // Odd passes - sort from array1 to array2
-                sortByDigit(Array1, Array2, digitIndex);
-                System.out.println("Output from Array2:");
-                printArray(Array2);
+                sortByDigit(array1, array2, digitIndex);
+                System.out.println("Output from array2:");
+                printArray(array2);
             } 
             else {
                 // Even passes - sort from array2 to array1
-                sortByDigit(Array2, Array1, digitIndex);
-                System.out.println("Output from Array1:");
-                printArray(Array1);
+                sortByDigit(array2, array1, digitIndex);
+                System.out.println("Output from array1:");
+                printArray(array1);
             }
         }
-        // Final pass - copy sorted numbers to the final array
+
+        // Final output
+        System.out.println("\nFinal sorted result:");
         if ((maxLength - 1) % 2 == 0) {
-            return Array1;
+            printArray(array1);
         } else {
-            return Array2;
+            printArray(array2);
         }
+
+        scanner.close();
+    }
+
+    private static int getMaxLength(String[] array) {
+        int maxLength = 0;
+        for (String num : array) {
+            maxLength = Math.max(maxLength, num.length());
+        }
+        return maxLength;
+    }
+
+    private static String padLeftZeros(String input, int length) {
+        return String.format("%" + length + "s", input).replace(' ', '0');
     }
 
     private static void sortByDigit(String[] source, String[] dest, int digitIndex) {
