@@ -17,7 +17,7 @@ public class RadixSortComplexityAnalysis {
         System.out.println("1. Digit-Based Radix Sort");
         System.out.println("2. Word-Based Radix Sort");
         
-        int choice = getIntInput(scanner, "Enter your choice (1-2): ", 1, 2);
+        int choice = getIntInput(scanner, "Enter your choice (1 or 2): ", 1, 2);
         
         // Ask user for input sizes to test
         System.out.println("\nEnter the number of input sizes you want to test:");
