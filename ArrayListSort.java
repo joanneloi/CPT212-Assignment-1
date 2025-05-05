@@ -89,6 +89,7 @@ public class ArrayListSort {
             }
         }
 
+        // 3. Reorder
         // Collect final sorted array
         System.out.println("3. Reorder");
         String[] finalArray = new String[count];
