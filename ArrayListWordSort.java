@@ -9,7 +9,7 @@ public class ArrayListWordSort {
         while (true) {
             System.out.println("Enter words separated by space (any length):");
             String input = scanner.nextLine().trim();
-            words = input.split("\\s+");
+            words = input.toLowerCase().split("\\s+");
             if (words.length > 0) break;
             System.out.println("Error: No words entered. Please try again.");
         }
@@ -41,7 +41,7 @@ public class ArrayListWordSort {
         ArrayList<ArrayList<String>> Array1 = new ArrayList<>();
         ArrayList<ArrayList<String>> Array2 = new ArrayList<>();
 
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 27; i++) { // only 27 buckets needed
             Array1.add(new ArrayList<>());
             Array2.add(new ArrayList<>());
         }
@@ -52,26 +52,26 @@ public class ArrayListWordSort {
 
             if (digitIndex == maxLength - 1) {
                 for (String word : words) {
-                    int ascii = word.charAt(digitIndex);
-                    Array1.get(ascii).add(word);
+                    int bucketIndex = getBucketIndex(word.charAt(digitIndex));
+                    Array1.get(bucketIndex).add(word);
                 }
                 System.out.println("Array1 after pass:");
                 printBuckets(Array1);
             } else if ((maxLength - 1 - digitIndex) % 2 == 1) {
-                for (int i = 0; i < 256; i++) {
+                for (int i = 0; i < 27; i++) {
                     for (String word : Array1.get(i)) {
-                        int ascii = word.charAt(digitIndex);
-                        Array2.get(ascii).add(word);
+                        int bucketIndex = getBucketIndex(word.charAt(digitIndex));
+                        Array2.get(bucketIndex).add(word);
                     }
                 }
                 System.out.println("Array2 after pass:");
                 printBuckets(Array2);
                 for (ArrayList<String> bucket : Array1) bucket.clear();
             } else {
-                for (int i = 0; i < 256; i++) {
+                for (int i = 0; i < 27; i++) {
                     for (String word : Array2.get(i)) {
-                        int ascii = word.charAt(digitIndex);
-                        Array1.get(ascii).add(word);
+                        int bucketIndex = getBucketIndex(word.charAt(digitIndex));
+                        Array1.get(bucketIndex).add(word);
                     }
                 }
                 System.out.println("Array1 after pass:");
@@ -85,13 +85,13 @@ public class ArrayListWordSort {
         int index = 0;
 
         if ((maxLength - 1) % 2 == 0) {
-            for (int i = 0; i < 256; i++) {
+            for (int i = 0; i < 27; i++) {
                 for (String word : Array1.get(i)) {
                     finalArray[index++] = word;
                 }
             }
         } else {
-            for (int i = 0; i < 256; i++) {
+            for (int i = 0; i < 27; i++) {
                 for (String word : Array2.get(i)) {
                     finalArray[index++] = word;
                 }
@@ -101,16 +101,19 @@ public class ArrayListWordSort {
         return finalArray;
     }
 
+    private static int getBucketIndex(char c) {
+        if (c == ' ') return 0;
+        return c - 'a' + 1;
+    }
+
     public static void printBuckets(ArrayList<ArrayList<String>> buckets) {
         for (int i = 0; i < buckets.size(); i++) {
             if (!buckets.get(i).isEmpty()) {
-                char label = (char) i;
-                if (Character.isLetterOrDigit(label)) {
-                    System.out.print("Bucket " + label + ": ");
-                } else if (label == ' ') {
+                if (i == 0) {
                     System.out.print("Bucket [space]: ");
                 } else {
-                    System.out.print("Bucket ?: ");
+                    char label = (char) ('A' + i - 1);
+                    System.out.print("Bucket " + label + ": ");
                 }
                 for (String word : buckets.get(i)) {
                     System.out.print(word.trim() + " ");
