@@ -31,7 +31,7 @@ public class ArrayListWordSortCount {
             }
         }
 
-        counter++; // assignment
+        counter +=2; // assignment, comparison
         for (int i = 0; i < words.length; i++) {
             counter += 2; // loop condition + increment
             words[i] = String.format("%-" + maxLength + "s", words[i]); // padding
