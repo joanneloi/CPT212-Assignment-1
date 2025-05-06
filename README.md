@@ -12,5 +12,7 @@
 
    Part 1
 1. Input Requirement:
+   
 Enter integers separated by space (e.g. 112 123 456 789 098)
+
 ➤ All integers must have the same number of digits.
