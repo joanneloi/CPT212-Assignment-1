@@ -16,3 +16,8 @@
 Enter integers separated by space (e.g. 112 123 456 789 098)
 
 ➤ All integers must have the same number of digits.
+
+##### Part 1
+➤ User enters a space-separated list of lowercase words. 
+
+Input is converted to lowercase and right-padded with spaces to ensure all words have equal length.
