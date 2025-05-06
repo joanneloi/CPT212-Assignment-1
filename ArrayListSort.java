@@ -1,112 +1,99 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ArrayListSort {
-    public static void main(String[] args) {       
-        // Create a scanner object for user input
+public class ArrayListWordSort {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        // Get input numbers
-        String[] numbers;
+        String[] words;
+
         while (true) {
-            // Sample input: 112 564 789 123 456 125 098 234 666
-            System.out.println("Enter numbers separated by space: The numbers should be in same length");
+            System.out.println("Enter words separated by space (any length):");
             String input = scanner.nextLine().trim();
-            numbers = input.split("\\s+");
-            if (numbers.length > 0) break; // Ensure input is not empty
-            System.out.println("Error: No numbers entered. Please try again.");
+            words = input.toLowerCase().split("\\s+");
+            if (words.length > 0) break;
+            System.out.println("Error: No words entered. Please try again.");
         }
 
-        // Get length of the numbers
-        int maxLength = numbers[0].length();
-        int count = numbers.length;
+        // Pad words with spaces to match the longest word
+        int maxLength = 0;
+        for (String word : words) {
+            if (word.length() > maxLength) maxLength = word.length();
+        }
 
-        // Perform radix sort
-        String[] sorted = radixSort(numbers, maxLength, count);
+        for (int i = 0; i < words.length; i++) {
+            words[i] = String.format("%-" + maxLength + "s", words[i]); // pad with spaces
+        }
 
-        // Final output 
+        String[] sorted = radixSort(words, maxLength);
+
+        // Final output (trim padding)
         System.out.println("\nFinal sorted result:");
-        System.out.println(String.join(" ", sorted));
+        for (String word : sorted) {
+            System.out.print(word.trim() + " ");
+        }
 
         scanner.close();
     }
 
-    private static String[] radixSort(String[] numbers, int maxLength, int count) {
-
-        // 1. Initialization
+    private static String[] radixSort(String[] words, int maxLength) {
         System.out.println("1. Initialization");
 
-        // Create 10 buckets for each array
         ArrayList<ArrayList<String>> Array1 = new ArrayList<>();
         ArrayList<ArrayList<String>> Array2 = new ArrayList<>();
 
-        // Initialize buckets
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 27; i++) { // only 27 buckets needed
             Array1.add(new ArrayList<>());
             Array2.add(new ArrayList<>());
         }
 
-        // Print initial state of buckets
-        System.out.println("10 buckets created in Array1 and Array2");
-        System.out.println();
-
-        // 2. Initialization
-        System.out.println("2. Initialization");
+        System.out.println("2. Sorting");
         for (int digitIndex = maxLength - 1; digitIndex >= 0; digitIndex--) {
-            System.out.println("\nAfter processing digit at index " + (digitIndex + 1));
+            System.out.println("\nAfter processing character at index " + (digitIndex + 1));
 
             if (digitIndex == maxLength - 1) {
-                // First pass - distribute from input to Array1
-                for (String num : numbers) {
-                    int digit = Character.getNumericValue(num.charAt(digitIndex));
-                    Array1.get(digit).add(num);
+                for (String word : words) {
+                    int bucketIndex = getBucketIndex(word.charAt(digitIndex));
+                    Array1.get(bucketIndex).add(word);
                 }
                 System.out.println("Array1 after pass:");
                 printBuckets(Array1);
             } else if ((maxLength - 1 - digitIndex) % 2 == 1) {
-                // Odd pass - Array1 to Array2
-                for (int i = 0; i < 10; i++) {
-                    for (String num : Array1.get(i)) {
-                        int digit = Character.getNumericValue(num.charAt(digitIndex));
-                        Array2.get(digit).add(num);
+                for (int i = 0; i < 27; i++) {
+                    for (String word : Array1.get(i)) {
+                        int bucketIndex = getBucketIndex(word.charAt(digitIndex));
+                        Array2.get(bucketIndex).add(word);
                     }
                 }
                 System.out.println("Array2 after pass:");
                 printBuckets(Array2);
-                // Clear Array1 for next round
                 for (ArrayList<String> bucket : Array1) bucket.clear();
             } else {
-                // Even pass - Array2 to Array1
-                for (int i = 0; i < 10; i++) {
-                    for (String num : Array2.get(i)) {
-                        int digit = Character.getNumericValue(num.charAt(digitIndex));
-                        Array1.get(digit).add(num);
+                for (int i = 0; i < 27; i++) {
+                    for (String word : Array2.get(i)) {
+                        int bucketIndex = getBucketIndex(word.charAt(digitIndex));
+                        Array1.get(bucketIndex).add(word);
                     }
                 }
                 System.out.println("Array1 after pass:");
                 printBuckets(Array1);
-                // Clear Array2 for next round
                 for (ArrayList<String> bucket : Array2) bucket.clear();
             }
         }
 
-        // 3. Reorder
-        // Collect final sorted array
         System.out.println("3. Reorder");
-        String[] finalArray = new String[count];
+        String[] finalArray = new String[words.length];
         int index = 0;
 
-        // if last pass was written to Array1, collect from Array1
-        // else collect from Array2
         if ((maxLength - 1) % 2 == 0) {
-            for (ArrayList<String> bucket : Array1) {
-                for (String num : bucket) {
-                    finalArray[index++] = num;
+            for (int i = 0; i < 27; i++) {
+                for (String word : Array1.get(i)) {
+                    finalArray[index++] = word;
                 }
             }
         } else {
-            for (ArrayList<String> bucket : Array2) {
-                for (String num : bucket) {
-                    finalArray[index++] = num;
+            for (int i = 0; i < 27; i++) {
+                for (String word : Array2.get(i)) {
+                    finalArray[index++] = word;
                 }
             }
         }
@@ -114,14 +101,25 @@ public class ArrayListSort {
         return finalArray;
     }
 
-    // Method to print the contents of the buckets
+    private static int getBucketIndex(char c) {
+        if (c == ' ') return 0;
+        return c - 'a' + 1;
+    }
+
     public static void printBuckets(ArrayList<ArrayList<String>> buckets) {
         for (int i = 0; i < buckets.size(); i++) {
-            System.out.print("Bucket " + i + ": ");
-            for (String s : buckets.get(i)) {
-                System.out.print(s + " ");
+            if (!buckets.get(i).isEmpty()) {
+                if (i == 0) {
+                    System.out.print("Bucket [space]: ");
+                } else {
+                    char label = (char) ('A' + i - 1);
+                    System.out.print("Bucket " + label + ": ");
+                }
+                for (String word : buckets.get(i)) {
+                    System.out.print(word.trim() + " ");
+                }
+                System.out.println();
             }
-            System.out.println();
         }
         System.out.println();
     }
