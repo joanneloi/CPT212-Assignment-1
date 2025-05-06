@@ -94,9 +94,9 @@ public class ArrayListSort {
             }
         }
 
-        // 3. Reorder
+        // 3. Reorder 
         // Collect final sorted array
-        System.out.println("3. Reorder");
+        System.out.println("3. Reorder ");
 
         // Array to hold the final sorted numbers
         String[] finalArray = new String[count];
@@ -123,7 +123,7 @@ public class ArrayListSort {
         return finalArray;
     }
 
-    // Method to print the contents of the buckets (Array1 or Array2) after each pass
+    // Method to get and print the contents of the buckets (Array1 or Array2) after every pass
     public static void printBuckets(ArrayList<ArrayList<String>> buckets) {
         // Loop through each bucket and print its contents
         for (int i = 0; i < buckets.size(); i++) {
