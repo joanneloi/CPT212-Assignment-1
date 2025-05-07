@@ -9,15 +9,4 @@
 
 #### How to Run the Program
 1. Open the code in Visual Studio Code.
-
-##### Part 1
-1. Input Requirement:
-   
-Enter integers separated by space (e.g. 112 123 456 789 098)
-
-➤ All integers must have the same number of digits.
-
-##### Part 1
-➤ User enters a space-separated list of lowercase words. 
-
-Input is converted to lowercase and right-padded with spaces to ensure all words have equal length.
+2. If can't directly run the program in 'Output', go to 'Terminal' > java filename.java.
