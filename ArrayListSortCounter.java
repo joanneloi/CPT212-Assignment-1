@@ -64,8 +64,9 @@ public class ArrayListSortCounter {
 
             counter += 2; // compare and subtraction
             if (digitIndex == maxLength - 1) {
-                for (String num : numbers) {
-                    counter++; //nested loop
+                counter += 2; // assignment, comparison
+                for (String num : numbers) {        //equivalent to for (int i = 0; i < words.length; i++)
+                    counter += 2; // loop condition + increment
                     int digit = Character.getNumericValue(num.charAt(digitIndex));
                     Array1.get(digit).add(num);
                     counter += 5; // assignment, getNumericValue, charAt, get, add
@@ -76,9 +77,9 @@ public class ArrayListSortCounter {
                 counter += 2; // assignment, comparison
                 for (int i = 0; i < 10; i++) {
                     counter += 2; // compare + increment
-
-                    for (String num : Array1.get(i)) {
-                        counter += 2; // nested loop + get operation
+                    counter += 2; // assignment, comparison
+                    for (String num : Array1.get(i)) {              // equivalent to for (int j = 0; j < Array1.get(i).size(); j++)
+                        counter += 3; // nested loop, assignment, comparison
                         int digit = Character.getNumericValue(num.charAt(digitIndex));
                         Array2.get(digit).add(num);
                         counter += 5; // assignment, getNumericValue, charAt, get, add
@@ -97,16 +98,17 @@ public class ArrayListSortCounter {
                 counter += 2; // assignment, comparison
                 for (int i = 0; i < 10; i++) {
                     counter += 2; // compare + increment
-                    
+                    counter += 2; // assignment, comparison
                     for (String num : Array2.get(i)) {
-                        counter++; // nested loop
+                        counter += 3; // nested loop, assignment, comparison
                         int digit = Character.getNumericValue(num.charAt(digitIndex));
                         Array1.get(digit).add(num);
                         counter += 5; // assignment, getNumericValue, charAt, get, add
                     }
                 }
+                counter += 2; // assignment, comparison
                 for (ArrayList<String> bucket : Array2) {
-                    counter++; // loop
+                    counter += 2; // loop condition + increment
                     bucket.clear();
                     counter++; // clear operation
                 }
@@ -123,8 +125,9 @@ public class ArrayListSortCounter {
 
         counter += 3; // subtraction, modulus, comparison
         if ((maxLength - 1) % 2 == 0) {
+            counter += 2; // assignment, comparison
             for (ArrayList<String> bucket : Array1) {
-                counter++; // loop condition
+                counter += 2; // loop condition + increment
                 for (String num : bucket) {
                     counter++; // nested loop
                     finalArray[index++] = num;
@@ -132,10 +135,12 @@ public class ArrayListSortCounter {
                 }
             }
         } else {
+            counter += 2; // assignment, comparison
             for (ArrayList<String> bucket : Array2) {
-                counter++; // loop condition
+                counter += 2; // loop condition + increment
+                counter += 2; // assignment, comparison
                 for (String num : bucket) {
-                    counter++; // nested loop
+                    counter += 2; // nested loop, assignment
                     finalArray[index++] = num;
                     counter += 2; //assignment, increment
                 }
