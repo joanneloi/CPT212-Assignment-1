@@ -22,8 +22,9 @@ public class ArrayListWordSortCount {
         // Pad words with spaces to match the longest word
         int maxLength = 0;
         counter++; // assignment
-        for (String word : words) {
-            counter++; // loop condition
+        counter += 2; // assignment + comparison
+        for (String word : words) { //equivalent to for (int i = 0; i < words.length; i++)
+            counter += 2; // loop condition + increment
             counter++; // comparison
             if (word.length() > maxLength) {
                 maxLength = word.length();
@@ -43,8 +44,9 @@ public class ArrayListWordSortCount {
 
         // Final output (trim padding)
         System.out.println("\nFinal sorted result:");
+        counter += 2; // assignment + comparison
         for (String word : sorted) {
-            counter++; // loop condition
+            counter += 2; // loop condition + increment
             System.out.print(word.trim() + " ");
         }
 
@@ -75,8 +77,9 @@ public class ArrayListWordSortCount {
             
             counter += 2; // comparison and arithmetic operation
             if (digitIndex == maxLength - 1) {
+                counter += 2; // assignment + comparison
                 for (String word : words) {
-                    counter++; // loop condition
+                    counter += 2; // comparison + increment
                     int bucketIndex = getBucketIndex(word.charAt(digitIndex));
                     counter += 3; // assignment + getBucketIndex + charAt
                     Array1.get(bucketIndex).add(word);
@@ -87,16 +90,18 @@ public class ArrayListWordSortCount {
                 counter += 2; // assignment + comparison
                 for (int i = 0; i < 27; i++) {
                     counter += 2; // loop condition + increment
-                    for (String word : Array1.get(i)) {
-                        counter += 2; // nested loop + get operation
+                    counter += 2; // assignment + comparison
+                    for (String word : Array1.get(i)) {             // equivalent to for (int j = 0; j < Array1.get(i).size(); j++)
+                        counter += 3; // comparison + increment + get operation
                         int bucketIndex = getBucketIndex(word.charAt(digitIndex));
                         counter += 2; // assignment + getBucketIndex call +charAt
                         Array2.get(bucketIndex).add(word);
                         counter += 2; // get operation + add operation
                     }
                 }
+                counter += 2; // assignment + comparison
                 for (ArrayList<String> bucket : Array1) {
-                    counter++; // loop
+                    counter += 2; // loop condition + increment
                     bucket.clear();
                     counter++; // clear operation
                 }
@@ -104,17 +109,19 @@ public class ArrayListWordSortCount {
                 counter += 4; // 2 substract + modulus + comparison (for else if)
                 counter++; //assignment
                 for (int i = 0; i < 27; i++) {
-                    counter += 2;
+                    counter += 2; // loop condition + increment
+                    counter += 2; // assignment + comparison
                     for (String word : Array2.get(i)) {
-                        counter++; // nested loop
+                        counter += 3; // comparison + increment + get operation
                         int bucketIndex = getBucketIndex(word.charAt(digitIndex));
                         counter += 3; // assignment + getBucketIndex call + charAt
                         Array1.get(bucketIndex).add(word);
                         counter += 2; // get operation + add operation
                     }
                 }
+                counter += 2; // assignment + comparison
                 for (ArrayList<String> bucket : Array2) {
-                    counter++; // loop
+                    counter += 2; // loop condition + increment 
                     bucket.clear();
                     counter++; // clear operation
                 }
@@ -132,8 +139,9 @@ public class ArrayListWordSortCount {
             counter += 2; // assignment + comparison
             for (int i = 0; i < 27; i++) {
                 counter += 2; // loop condition + increment
+                counter += 2; // assignment + comparison
                 for (String word : Array1.get(i)) {
-                    counter++; // nested loop
+                    counter += 3; // comparison + increment + get operation
                     finalArray[index++] = word;
                     counter += 2; // assignment + increment
                 }
@@ -142,14 +150,14 @@ public class ArrayListWordSortCount {
             counter += 2; // assignment +comparison
             for (int i = 0; i < 27; i++) {
                 counter += 2; // loop condition + increment
+                counter += 2; // assignment + comparison
                 for (String word : Array2.get(i)) {
-                    counter++; // nested loop
+                    counter += 3; // comparison + increment + get operation
                     finalArray[index++] = word;
                     counter += 2; // assignment + increment
                 }
             }
         }
-
         counter++; // return
         return finalArray;
     }
