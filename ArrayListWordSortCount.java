@@ -31,7 +31,7 @@ public class ArrayListWordSortCount {
             }
         }
 
-        counter +=2; // assignment, comparison
+        counter +=2; // assignment + comparison
         for (int i = 0; i < words.length; i++) {
             counter += 2; // loop condition + increment
             words[i] = String.format("%-" + maxLength + "s", words[i]); // padding
@@ -59,7 +59,7 @@ public class ArrayListWordSortCount {
         ArrayList<ArrayList<String>> Array2 = new ArrayList<>();
         counter += 2; // assignments
 
-        counter++; // assignment
+        counter += 2; // assignment + comparison
         for (int i = 0; i < 27; i++) {
             counter += 2; // loop condition + increment
             Array1.add(new ArrayList<>());
@@ -68,7 +68,7 @@ public class ArrayListWordSortCount {
         }
 
         System.out.println("2. Sorting");
-        counter++; // assignment
+        counter += 2; // assignment + comparison
         for (int digitIndex = maxLength - 1; digitIndex >= 0; digitIndex--) {
             counter += 2; // loop condition + decrement
             System.out.println("\nAfter processing character at index " + (digitIndex + 1));
@@ -84,7 +84,7 @@ public class ArrayListWordSortCount {
                 }
             } else if ((maxLength - 1 - digitIndex) % 2 == 1) {
                 counter += 4; // 2 substract + modulus + comparison
-                counter++; // assignment
+                counter += 2; // assignment + comparison
                 for (int i = 0; i < 27; i++) {
                     counter += 2; // loop condition + increment
                     for (String word : Array1.get(i)) {
@@ -101,7 +101,7 @@ public class ArrayListWordSortCount {
                     counter++; // clear operation
                 }
             } else {
-                counter += 4; // 2 substract + modulus + comparison
+                counter += 4; // 2 substract + modulus + comparison (for else if)
                 counter++; //assignment
                 for (int i = 0; i < 27; i++) {
                     counter += 2;
@@ -129,7 +129,7 @@ public class ArrayListWordSortCount {
 
         counter += 3; // substract, modulus, comparison
         if ((maxLength - 1) % 2 == 0) {
-            counter++; // assignment
+            counter += 2; // assignment + comparison
             for (int i = 0; i < 27; i++) {
                 counter += 2; // loop condition + increment
                 for (String word : Array1.get(i)) {
@@ -139,7 +139,7 @@ public class ArrayListWordSortCount {
                 }
             }
         } else {
-            counter++; // assignment
+            counter += 2; // assignment +comparison
             for (int i = 0; i < 27; i++) {
                 counter += 2; // loop condition + increment
                 for (String word : Array2.get(i)) {
