@@ -13,6 +13,9 @@
 
 #### File Path
 Part 1: Integer Radix Sort -> ArrayListSort.java
+
 Part 2: Word Radiz Sort -> ArrayListWordSort.java
+
 Part 3: Integer based Radix Sort with Counter -> ArrayListSortCounter.java
+
 Part 3: Word based Radix Sort with Counter -> ArrayListWordSortCounter.java
