@@ -10,3 +10,9 @@
 #### How to Run the Program
 1. Open the code in Visual Studio Code.
 2. If can't directly run the program in 'Output', go to 'Terminal' > java filename.java.
+
+#### File Path
+Part 1: Integer Radix Sort -> ArrayListSort.java
+Part 2: Word Radiz Sort -> ArrayListWordSort.java
+Part 3: Integer based Radix Sort with Counter -> ArrayListSortCounter.java
+Part 3: Word based Radix Sort with Counter -> ArrayListWordSortCounter.java
